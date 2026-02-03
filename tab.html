@@ -1,11 +1,72 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tabs Component (switch content on click)</title>
+    <style>
+      .btn {
+        background-color: tomato;
+        border: none;
+        padding: 6px 12px;
+        color: #ffffff;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 600;
+      }
+      .btn.active {
+        background-color: rgb(200, 89, 69);
+      }
+      .contents {
+        display: none;
+      }
+      .contents.active {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="buttons">
+      <button class="btn active" data-tab="tab01">Dashboard</button>
+      <button class="btn" data-tab="tab02">Products</button>
+      <button class="btn" data-tab="tab03">Category</button>
+    </div>
+    <div class="contents active" id="tab01">
+      <h2>Dashboard</h2>
+      <p>Dashboard Dashboard Dashboard Dashboard</p>
+    </div>
+    <div class="contents" id="tab02">
+      <h2>Products</h2>
+      <p>Products tab Products tab Products tab Products tab</p>
+    </div>
+    <div class="contents" id="tab03">
+      <h2>Category</h2>
+      <p>Category tab Category tab Category tab Category tab</p>
+    </div>
+    <script>
+      const btns = document.querySelectorAll('.btn');
+      const contents = document.querySelectorAll('.contents');
+      btns.forEach((btn)=>{
+        btn.addEventListener('click',()=>{
+          // if you click anyother tab or another tab or button then previous active tab(i.e active props ) should be removed
+          btns.forEach((bt)=>bt.classList.remove('active'));
+          // if you click anyother tab or another tab or button then previous active content should also disapper
+          contents.forEach((c)=>c.classList.remove('active'));
+
+          // const target = btn.dataset;
+          const target = btn.dataset.tab;
+
+          console.log("target",target)
+          // select or target that id or container/tag/element whose conent we want to show on clicking the secific tab;
+          document.getElementById(target).classList.add('active');
+          
+          // now we have to show that which tab's content is currently appearing or showing for that we have add active class to that tab
+          console.log("just clicked button", btn)
+
+          btn.classList.add('active');
+        })
+        
+      })
+    </script>
+  </body>
 </html>
