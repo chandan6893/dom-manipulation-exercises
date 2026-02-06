@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accordion (FAQ section)</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: none;
+            padding: none;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 100px 0;
+        }
+
+        .accordian {
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+            padding: 6px 15px;
+            background-color: aliceblue;
+            width: 450px;
+            cursor: pointer;
+        }
+
+        .question_container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .answer {
+            display: none;
+        }
+
+        .answer.active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="accordian ">
+            <div class="question_container">
+                <p>First Question?</p>
+                <span>&#x25BC</span>
+            </div>
+            <p class="answer">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi animi aliquam voluptates officia
+                reprehenderit.
+            </p>
+        </div>
+
+        <div class="accordian">
+            <div class="question_container">
+                <p>Second Question?</p>
+                <span>&#x25BC</span>
+            </div>
+            <p class="answer">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi animi aliquam voluptates officia
+                reprehenderit.
+            </p>
+        </div>
+
+        <div class="accordian">
+            <div class="question_container">
+                <p>Third Question?</p>
+                <span>&#x25BC</span>
+            </div>
+            <p class="answer">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi animi aliquam voluptates officia
+                reprehenderit.
+            </p>
+        </div>
+
+
+
+
+    </div>
+
+  
+
+    <!-- <script>
+
+    const accordians = document.querySelectorAll('.accordian');
+  
+
+   accordians.forEach((accordian)=>{
+    accordian.addEventListener('click',()=>{
+
+         accordians.forEach((item)=>{
+        if( item !== accordian ){
+            item.querySelector('.answer').classList.remove('active');
+            item.querySelector('span').style.transform = "rotate(0deg)";
+        }
+        accordian.querySelector('.answer').classList.toggle('active')
+        accordian.querySelector('span').style.transform = accordian.querySelector('.answer').classList.contains('active')? "rotate(180deg)": "rotate(0deg)"
+    });
+
+    })
+   });
+    
+    
+</script> -->
+
+<!-- 222222222222222222222222222222222222222222222222 -->
+   <!-- <script>
+        const accordions = document.querySelectorAll(".accordian");
+
+        accordions.forEach((accordion) => {
+            accordion.addEventListener("click", () => {
+                // Close all others
+
+                accordions.forEach((item) => {
+                    if (item !== accordion) {
+                        item.querySelector(".answer").classList.remove("active");
+                        item.querySelector("span").style.transform = "rotate(0deg)";
+                    }
+                });
+
+                // Toggle current
+                const answer = accordion.querySelector(".answer");
+                const icon = accordion.querySelector("span");
+
+                answer.classList.toggle("active");
+                icon.style.transform = answer.classList.contains("active")
+                    ? "rotate(180deg)"
+                    : "rotate(0deg)";
+            });
+        });
+    </script> -->
+<!-- 33333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333 -->
+
+ <script>
+    const accordians = document.querySelectorAll('.accordian');
+    // console.log("accordian==>",accordians)
+    accordians.forEach((accordian)=>{
+        // console.log("accordian==>",accordian)
+        accordian.addEventListener('click',()=>{
+            // console.log("juustClickedAcc====>", accordian)
+            accordians.forEach((juustClickedAcc)=>{
+                if(juustClickedAcc !== accordian){
+                    juustClickedAcc.querySelector('.answer').classList.remove('active');
+                    juustClickedAcc.querySelector('span').style.transform = "rotate(0deg)"
+                }
+            })
+            const answer = accordian.querySelector('.answer');
+            const icon =   accordian.querySelector('span');
+            answer.classList.toggle('active');
+            icon.style.transform = answer.classList.contains('active') ? "rotate(180deg)" : "rotate(0deg)"
+        })
+    })
+ </script>
+
+</body>
+
+</html>

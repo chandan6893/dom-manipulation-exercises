@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accordion (FAQ section)</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: none;
+            padding: none;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 100px 0;
+        }
+
+        .accordian {
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+            padding: 6px 15px;
+            background-color: aliceblue;
+            width: 450px;
+            cursor: pointer;
+        }
+
+        .question_container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .answer {
+            display: none;
+        }
+        .answer.active{
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="accordian ">
+            <div class="question_container">
+                <p>First Question?</p>
+                <span>&#x25BC</span>
+            </div>
+            <p class="answer">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi animi aliquam voluptates officia
+                reprehenderit.
+            </p>
+        </div>
+
+        <div class="accordian">
+            <div class="question_container">
+                <p>Second Question?</p>
+                <span>&#x25BC</span>
+            </div>
+            <p class="answer">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi animi aliquam voluptates officia
+                reprehenderit.
+            </p>
+        </div>
+
+        <div class="accordian">
+            <div class="question_container">
+                <p>Third Question?</p>
+                <span>&#x25BC</span>
+            </div>
+            <p class="answer">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi animi aliquam voluptates officia
+                reprehenderit.
+            </p>
+        </div>
+
+        <div class="accordian">
+            <div class="question_container">
+                <p> Fourth Question?</p>
+                <span>&#x25BC</span>
+            </div>
+            <p class="answer">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi animi aliquam voluptates officia
+                reprehenderit.
+            </p>
+        </div>
+
+        <div class="accordian">
+            <div class="question_container">
+                <p>Fifth Question?</p>
+                <span>&#x25BC</span>
+            </div>
+            <p class="answer">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi animi aliquam voluptates officia
+                reprehenderit.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // DOM MANIPULATION: ACCORDION COMPONENT
+        // ============================================
+        // This code demonstrates:
+        // 1. querySelectorAll() - selecting multiple elements
+        // 2. forEach() - looping through elements
+        // 3. addEventListener() - handling click events
+        // 4. querySelector() - finding nested elements
+        // 5. classList.toggle() - adding/removing CSS classes
+        // ============================================
+
+        // STEP 1: SELECT ALL ACCORDION ELEMENTS
+        // querySelectorAll returns a NodeList of all elements with class 'accordian'
+        // NodeList is similar to an array and contains 5 accordion elements
+        const accordions = document.querySelectorAll('.accordian');
+        console.log('Total accordions found:', accordions.length); // Output: 5
+
+        // STEP 2: LOOP THROUGH EACH ACCORDION
+        // forEach() executes the function for each accordion element
+        // This ensures every accordion gets a click listener attached
+        accordions.forEach((accordion) => {
+
+            // STEP 3: ADD CLICK EVENT LISTENER
+            // When user clicks on an accordion, this function runs
+            // 'click' is the event type we're listening for
+            accordion.addEventListener('click', () => {
+
+                // STEP 4: FIND THE ANSWER ELEMENT INSIDE THIS ACCORDION
+
+                // querySelector() searches ONLY inside the current accordion
+                // (not the entire document)
+                // This is important because each accordion has its own answer
+                const answer = accordion.querySelector('.answer');
+                
+                // STEP 5: TOGGLE THE 'ACTIVE' CLASS
+                // classList.toggle() automatically:
+                //   - ADDS 'active' class if it's NOT present
+                //   - REMOVES 'active' class if it IS present
+                // CSS Rule: .answer.active { display: block; }
+                // CSS Rule: .answer { display: none; }
+                // So toggling makes the answer visible/hidden
+                answer.classList.toggle('active');
+
+                // LOG TO CONSOLE FOR DEBUGGING
+                console.log('Accordion clicked!');
+                console.log('Answer text preview:', answer.textContent.substring(0, 40) + '...');
+                console.log('Is answer visible now?', answer.classList.contains('active'));
+
+            });
+        });
+
+        // ============================================
+        // HOW IT WORKS:
+        // 1. Page loads → querySelectorAll finds all 5 accordions
+        // 2. forEach adds a click listener to EACH accordion
+        // 3. User clicks an accordion
+        // 4. Listener finds the answer inside that accordion
+        // 5. classList.toggle() adds/removes 'active' class
+        // 6. CSS hides/shows the answer based on 'active' class
+        // ============================================
+
+        // OPTIONAL: To make ONLY ONE accordion open at a time, 
+        // replace the above code with this:
+        /*
+        accordions.forEach((accordion) => {
+            accordion.addEventListener('click', () => {
+                const answer = accordion.querySelector('.answer');
+
+                // Remove 'active' from ALL accordions first
+                accordions.forEach((acc) => {
+                    acc.querySelector('.answer').classList.remove('active');
+                });
+
+                // Then add 'active' only to the clicked one
+                answer.classList.add('active');
+            });
+        });
+        */
+
+    </script>
+</body>
+
+</html>
