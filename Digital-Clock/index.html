@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Digital Clock</title>
+  </head>
+  <body>
+    <h1 id="clock"></h1>
+    <script>
+      function updateClock() {
+        const date = new Date();
+        const hours24 = date.getHours();
+        // how to convert 12 hours time format to am/pm
+        const ampm = hours24 >= 12 ? "pm" : "am";
+
+        let hours = hours24 % 12;
+        hours = hours ? hours : 12;
+        hours = hours.toString().padStart(2, "0");
+
+        minutes = date.getMinutes().toString().padStart(2, "0");
+        Seconds = date.getSeconds().toString().padStart(2, "0");
+        const time = `${hours}:${minutes}:${Seconds} ${ampm}`;
+        document.getElementById("clock").innerText = time;
+      }
+
+      setInterval(() => {
+        updateClock();
+      }, 1000);
+    </script>
+  </body>
+</html>
