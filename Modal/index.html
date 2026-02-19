@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        gap: 15px;
+        position: relative;
+      }
+      .box {
+        width: 350px;
+        height: auto;
+        padding: 8px;
+        background-color: aliceblue;
+        color: #000000;
+        text-align: left;
+        position: fixed;
+        margin-bottom: 200px;
+
+        /* display: none; */
+
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: 0.3s ease;
+        pointer-events: none;
+      }
+      .box.active {
+        /* display: block; */
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+      #clickView {
+        background-color: turquoise;
+        border: none;
+        padding: 10px 20px;
+        color: #ffffff;
+        font-weight: 600;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        position: fixed;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vero temporibus
+      enim quidem natus modi excepturi officiis veniam, voluptates
+      exercitationem consequuntur minus harum, alias incidunt quod libero,
+      obcaecati est placeat esse.
+    </div>
+    <button id="clickView">Show</button>
+    <script>
+      // const btn = document.querySelector("#clickView");
+      // const box = document.querySelector(".box");
+      // btn.addEventListener("click", () => {
+      //   box.classList.toggle("active");
+      //   const activeBox = box.classList.contains("active");
+      //   btn.innerText = activeBox ? "Hide" : "Show";
+
+      //   console.log("activeBox======>", activeBox);
+      // });
+
+      const btn = document.querySelector("#clickView");
+      const box = document.querySelector(".box");
+
+      // Toggle box
+      btn.addEventListener("click", () => {
+        box.classList.toggle("active");
+
+        btn.innerText = box.classList.contains("active") ? "Hide" : "View";
+      });
+
+      // Close when clicking outside
+      document.addEventListener("click", (e) => {
+        const isClickInsideBox = box.contains(e.target);
+        const isClickOnButton = btn.contains(e.target);
+
+        if (
+          box.classList.contains("active") &&
+          !isClickInsideBox &&
+          !isClickOnButton
+        ) {
+          box.classList.remove("active");
+          btn.innerText = "View";
+        }
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && box.classList.contains("active")) {
+          box.classList.remove("active");
+          btn.innerText = "View";
+        }
+      });
+    </script>
+  </body>
+</html>
