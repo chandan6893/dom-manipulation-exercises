@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carousel</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .image {
+        max-width: 300px;
+        height: auto;
+      }
+      .slide {
+        display: none;
+      }
+      .slide.active {
+        display: block;
+      }
+      .btns {
+        /* background-color: aqua; */
+        max-width: 400px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 50px;
+      }
+      #prev,
+      #next {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="carousel">
+      <div class="slide active">
+        <img class="image" src="./images/Flexfuel1.png" alt="Flexfuel1" />
+      </div>
+
+      <div class="slide">
+        <img class="image" src="./images/Flexfuel2.png" alt="Flexfuel2" />
+      </div>
+
+      <div class="slide">
+        <img class="image" src="./images/Flexfuel3.png" alt="Flexfuel3" />
+      </div>
+    </div>
+    <div class="btns">
+      <button id="prev">P</button>
+      <button id="next">N</button>
+    </div>
+    <script>
+      const slides = document.querySelectorAll(".slide");
+      const prevBtn = document.querySelector("#prev");
+      const nextBtn = document.querySelector("#next");
+
+      // 2. Set the initial state
+      let currentIndex = 0;
+      // slides.length will be 3 (because we have 3 images)
+
+      // 3. The Core Function: Update the DOM
+      function showSlide(index) {
+        // First, loop through ALL slides and remove the 'active' class
+        slides.forEach((slide) => {
+          slide.classList.remove("active");
+        });
+
+        // Second, add the 'active' class ONLY to the slide at the new index
+        slides[index].classList.add("active");
+      }
+
+      // 4. Next Button Logic
+      nextBtn.addEventListener("click", () => {
+        currentIndex++; // Move one step forward
+
+        // Boundary Check: If we went past the last image, loop back to 0
+        if (currentIndex >= slides.length) {
+          currentIndex = 0;
+        }
+
+        showSlide(currentIndex); // Update the DOM
+      });
+
+      // 5. Prev Button Logic
+      prevBtn.addEventListener("click", () => {
+        currentIndex--; // Move one step backward
+
+        // Boundary Check: If we went below 0, loop to the last image
+        if (currentIndex < 0) {
+          currentIndex = slides.length - 1; // Array index is length - 1
+        }
+
+        showSlide(currentIndex); // Update the DOM
+      });
+    </script>
+  </body>
+</html>
