@@ -1,0 +1,79 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      /* The outer track */
+      .progress-container {
+        width: 100%;
+        max-width: 400px;
+        height: 25px;
+        background-color: #e0e0e0;
+        border-radius: 15px;
+        overflow: hidden; /* Keeps the inner bar rounded at the edges */
+        margin-bottom: 20px;
+      }
+
+      /* The inner filled portion */
+      .progress-fill {
+        height: 100%;
+        width: 0%; /* Starts empty */
+        background-color: #4caf50; /* Green */
+        border-radius: 15px;
+        transition: width 0.3s ease; /* The magic that makes it glide smoothly */
+      }
+
+      /* Basic button styling */
+      button {
+        padding: 10px 15px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="progress-container">
+      <div id="progress-fill" class="progress-fill"></div>
+    </div>
+
+    <button id="update-btn">Increase Progress by 10%</button>
+    <script>
+      // 1. DOM Selection: Grab the elements we need to interact with
+      const progressBar = document.getElementById("progress-fill");
+      const updateBtn = document.getElementById("update-btn");
+
+      // 2. State Management: Track the current progress (starts at 0)
+      let currentProgress = 0;
+
+      // 3. Event Listener: Listen for button clicks
+      updateBtn.addEventListener("click", () => {
+        // 4. Boundary Logic: Only increase if we are below 100%
+        if (currentProgress < 100) {
+          currentProgress += 10; // Add 10 to the current state
+
+          // Cap it exactly at 100 just in case of weird math
+          if (currentProgress > 100) {
+            currentProgress = 100;
+          }
+
+          // 5. Inline Style Manipulation: Update the DOM element's width
+          progressBar.style.width = `${currentProgress}%`;
+
+          // Optional: Update button text when finished
+          if (currentProgress === 100) {
+            updateBtn.innerText = "Task Complete!";
+            updateBtn.disabled = true; // Prevent further clicks
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
