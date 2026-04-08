@@ -1,0 +1,198 @@
+<!-- <!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .circle-container {
+        position: relative;
+        width: 120px;
+        height: 120px;
+      }
+
+      svg {
+        transform: rotate(-90deg);
+      }
+
+      circle {
+        stroke-linecap: round;
+      }
+
+      .text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="circle-container">
+      <svg width="120" height="120">
+        <circle
+          cx="60"
+          cy="60"
+          r="50"
+          stroke="#eee"
+          stroke-width="10"
+          fill="none"
+        />
+
+        <circle
+          cx="60"
+          cy="60"
+          r="50"
+          stroke="blue"
+          stroke-width="10"
+          fill="none"
+          id="progressCircle"
+        />
+      </svg>
+
+      <div class="text" id="progressText">0%</div>
+    </div>
+
+    <button id="btn">Increase</button>
+    <script>
+      const circle = document.getElementById("progressCircle");
+      const text = document.getElementById("progressText");
+      const btn = document.getElementById("btn");
+
+      const radius = 50;
+      const circumference = 2 * Math.PI * radius;
+
+      circle.style.strokeDasharray = circumference;
+
+      let progress = 0;
+
+      btn.addEventListener("click", () => {
+        progress += 10;
+        if (progress > 100) progress = 100;
+
+        const offset = circumference - (progress / 100) * circumference;
+
+        circle.style.strokeDashoffset = offset;
+        text.innerText = progress + "%";
+      });
+    </script>
+  </body>
+</html> -->
+
+
+<!-- 2222222222222222222222222222222222222222222222222222222222222222222222222222222 -->
+ <!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .progress-container {
+        position: relative;
+        width: 120px;
+        height: 120px;
+      }
+
+      /* Rotate the whole SVG so it starts at the top */
+      .circular-chart {
+        transform: rotate(-90deg);
+      }
+
+      /* Base styling for both circles */
+      circle {
+        fill: none; /* No color inside the circle */
+        stroke-width: 10; /* Thickness of the ring */
+        stroke-linecap: round; /* Gives the progress line rounded edges */
+      }
+
+      /* The background track */
+      .circle-bg {
+        stroke: #eee;
+      }
+
+      /* The progress line */
+      .circle-progress {
+        stroke: #4caf50; /* Green */
+        /* We will set the dasharray and offset in JavaScript, 
+       but we need the transition here for smooth animation! */
+        transition: stroke-dashoffset 0.5s ease-in-out;
+      }
+
+      /* Center the text inside the circle */
+      .percentage-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-family: sans-serif;
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="progress-container">
+      <svg class="circular-chart" width="120" height="120">
+        <circle class="circle-bg" cx="60" cy="60" r="50"></circle>
+        <circle class="circle-progress" cx="60" cy="60" r="50"></circle>
+      </svg>
+
+      <div class="percentage-text" id="percent-text">0%</div>
+    </div>
+
+    <button id="add-btn">Add 20%</button>
+    <button id="reset-btn">Reset</button>
+    <script>
+      // 1. DOM Selection
+      const progressCircle = document.querySelector(".circle-progress");
+      const percentText = document.getElementById("percent-text");
+      const addBtn = document.getElementById("add-btn");
+      const resetBtn = document.getElementById("reset-btn");
+
+      // 2. State Management
+      let currentPercent = 0;
+
+      // 3. The Math (Calculate Circumference)
+      const radius = progressCircle.r.baseVal.value; // Gets '50' from the HTML
+      const circumference = 2 * Math.PI * radius; // Formula: 2 * pi * r
+
+      // 4. Initial Setup: Create the single massive dash and hide it
+      progressCircle.style.strokeDasharray = `${circumference} ${circumference}`;
+      progressCircle.style.strokeDashoffset = circumference; // Hides the stroke initially
+
+      // 5. The Core Function: Update the DOM based on a percentage
+      function setProgress(percent) {
+        // Calculate how much to offset the dash
+        const offset = circumference - (percent / 100) * circumference;
+
+        // Apply the offset to the CSS
+        progressCircle.style.strokeDashoffset = offset;
+
+        // Update the text in the middle
+        percentText.innerText = `${percent}%`;
+      }
+
+      // 6. Button Listeners
+      addBtn.addEventListener("click", () => {
+        if (currentPercent < 100) {
+          currentPercent += 20;
+          if (currentPercent > 100) currentPercent = 100; // Cap at 100
+          setProgress(currentPercent);
+        }
+      });
+
+      resetBtn.addEventListener("click", () => {
+        currentPercent = 0;
+        setProgress(currentPercent);
+      });
+    </script>
+    <script></script>
+  </body>
+</html>
+
